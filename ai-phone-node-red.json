@@ -1,0 +1,125 @@
+[
+    {
+        "id": "207cf68.949d80a",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "be44b33.54f8e5",
+        "type": "ibmiot in",
+        "z": "207cf68.949d80a",
+        "authentication": "boundService",
+        "apiKey": "",
+        "inputType": "evt",
+        "logicalInterface": "",
+        "ruleId": "",
+        "deviceId": "",
+        "applicationId": "",
+        "deviceType": "+",
+        "eventType": "+",
+        "commandType": "",
+        "format": "json",
+        "name": "IBM IoT",
+        "service": "registered",
+        "allDevices": "",
+        "allApplications": "",
+        "allDeviceTypes": true,
+        "allLogicalInterfaces": "",
+        "allEvents": true,
+        "allCommands": "",
+        "allFormats": "",
+        "qos": 0,
+        "x": 140,
+        "y": 180,
+        "wires": [
+            [
+                "19fcf36c.877ab5",
+                "75bfbdbf.fd41f4"
+            ]
+        ]
+    },
+    {
+        "id": "ff738e7a.838fd",
+        "type": "debug",
+        "z": "207cf68.949d80a",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 510,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "19fcf36c.877ab5",
+        "type": "function",
+        "z": "207cf68.949d80a",
+        "name": "",
+        "func": "msg.payload =\n{\nX : msg.payload.d.ax,\nY : msg.payload.d.ay,\nZ : msg.payload.d.az,\nalpha : msg.payload.d.oa,\nbeta : msg.payload.d.ob,\ngamma : msg.payload.d.og,\nSENSORID : msg.payload.d.id,\nCLASS : 1\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 320,
+        "y": 300,
+        "wires": [
+            [
+                "ff738e7a.838fd",
+                "825c2340.1eb968"
+            ]
+        ]
+    },
+    {
+        "id": "f5fbe9a3.2816b8",
+        "type": "cloudant out",
+        "z": "207cf68.949d80a",
+        "name": "",
+        "cloudant": "",
+        "database": "shake_classification",
+        "service": "iotp-starter-cloudantNoSQLDB",
+        "payonly": true,
+        "operation": "insert",
+        "x": 540,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "825c2340.1eb968",
+        "type": "delay",
+        "z": "207cf68.949d80a",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "10",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 420,
+        "y": 360,
+        "wires": [
+            [
+                "f5fbe9a3.2816b8"
+            ]
+        ]
+    },
+    {
+        "id": "75bfbdbf.fd41f4",
+        "type": "debug",
+        "z": "207cf68.949d80a",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 320,
+        "y": 140,
+        "wires": []
+    }
+]
